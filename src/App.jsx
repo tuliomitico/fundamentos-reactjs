@@ -6,6 +6,60 @@ import "./global.css";
 
 import styles from "./App.module.css";
 
+/**
+ * @typedef {Object} Post
+ * @prop {number} id
+ * @prop {Object} author
+ * @prop {string} author.avatarUrl
+ * @prop {string} author.name
+ * @prop {string} author.role
+ * @prop {{ type: "paragraph" | "link", content: string}[]} content
+ * @prop {Date} publishedAt
+ */
+
+/**
+ * @constant
+ * @type {Post[]}
+ */
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/tuliomitico.png",
+      name: "Túlio de Freitas",
+      role: "Fullstack Engineer",
+    },
+    content: [
+      { type: "paragraph", content: "Fala galeraa 👋" },
+      {
+        type: "paragraph",
+        content:
+          "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀",
+      },
+      { type: "link", content: "jane.design/doctorcare" },
+    ],
+    publishedAt: new Date("2025-07-15 14:49:01"),
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: "https://github.com/albertveiga.png",
+      name: "Albert Veiga",
+      role: "Severino",
+    },
+    content: [
+      { type: "paragraph", content: "Fala galeraa 👋" },
+      {
+        type: "paragraph",
+        content:
+          "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀",
+      },
+      { type: "link", content: "jane.design/doctorcare" },
+    ],
+    publishedAt: new Date("2025-07-22 11:51:35"),
+  },
+];
+
 export function App() {
   return (
     <div>
@@ -13,11 +67,16 @@ export function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post
-            author="Túlio"
-            content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem eligendi veritatis doloribus deleniti laboriosam maiores est sequi aperiam omnis. Molestias ipsum reiciendis officiis error quae mollitia accusamus fuga sequi dolores."
-          />
-          <Post author="Fulano de tal" content="Um post muito legal" />
+          {posts.map((post) => {
+            return (
+              <Post
+                key={post.id}
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            );
+          })}
         </main>
       </div>
     </div>
