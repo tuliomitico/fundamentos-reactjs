@@ -3,11 +3,23 @@ import styles from "./Comment.module.css";
 import { Avatar } from "./Avatar";
 
 /**
- *
- * @param {Record<string, string>} props
+ * @typedef {Object} CommentProps
+ * @prop {string} content
+ * @prop {(comment: string) => void} onDeleteComment
+ */
+
+/**
+ * @param {CommentProps} props
  * @returns {import("react").JSX.Element}
  */
-export function Comment({ content }) {
+export function Comment({ content, onDeleteComment }) {
+  /**
+   * @returns {void}
+   */
+  function handleDeleteComment() {
+    onDeleteComment(content);
+  }
+
   return (
     <div className={styles.comment}>
       <Avatar hasBorder={false} src="https://github.com/tuliomitico.png" />
@@ -20,7 +32,11 @@ export function Comment({ content }) {
                 Cerca de uma 1h atrás
               </time>
             </div>
-            <button title="Deletar comentário" type="button">
+            <button
+              onClick={handleDeleteComment}
+              title="Deletar comentário"
+              type="button"
+            >
               <Trash size={24} />
             </button>
           </header>
