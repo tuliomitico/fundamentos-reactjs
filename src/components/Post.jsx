@@ -51,10 +51,13 @@ export function Post({ author, content, publishedAt }) {
 
   /**
    *
-   * @param {string} comment
+   * @param {string} commentToDelete
    */
-  function deleteComment(comment) {
-    console.log("Deletar comentário", comment);
+  function deleteComment(commentToDelete) {
+    const commentWithoutDeletedOne = comments.filter(
+      (comment) => comment !== commentToDelete,
+    );
+    setComments(commentWithoutDeletedOne);
   }
 
   return (
@@ -105,7 +108,7 @@ export function Post({ author, content, publishedAt }) {
             <Comment
               key={comment}
               content={comment}
-              onDleteComment={deleteComment}
+              onDeleteComment={deleteComment}
             />
           );
         })}
