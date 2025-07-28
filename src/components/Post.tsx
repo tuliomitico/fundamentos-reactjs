@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, type ChangeEvent, type FormEvent, type InvalidEvent } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
 
+
+interface Author {
+  avatarUrl: string;
+  name: string;
+  role: string;
+}
+interface Content {
+  type: "paragraph" | "link";
+  content: string;
+}
+interface PostProps {
+  author: Author;
+  content: Content[];
+  publishedAt: Date;
+}
 /**
- *
  * @param {import("../App.jsx").Post} props
  * @returns {import("react").JSX.Element}
  */
-export function Post({ author, content, publishedAt }) {
-  const [comments, setComments] = useState([]);
+export function Post({ author, content, publishedAt }: PostProps): React.JSX.Element {
+  const [comments, setComments] = useState<string[]>([]);
 
   const [newCommentText, setNewCommentText] = useState("");
 
@@ -32,12 +46,10 @@ export function Post({ author, content, publishedAt }) {
    *
    * @param {import("react").FormEvent} event
    */
-  function handleCreateNewComment(event) {
+  function handleCreateNewComment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setComments((prevState) => prevState.concat(newCommentText));
-
-    event.target.comment.value = "";
     setNewCommentText("");
   }
 
@@ -47,7 +59,7 @@ export function Post({ author, content, publishedAt }) {
    * @param {import("react").InvalidEvent<HTMLTextAreaElement>} event - The invalid event triggered by the textarea.
    */
 
-  function handleNewCommentInvalid(event) {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("Esse campo é obrigatório");
   }
 
@@ -55,7 +67,7 @@ export function Post({ author, content, publishedAt }) {
    *
    * @param {import("react").ChangeEvent<HTMLTextAreaElement>} e
    */
-  function handleNewCommentChange(e) {
+  function handleNewCommentChange(e: ChangeEvent<HTMLTextAreaElement>) {
     e.target.setCustomValidity("");
     setNewCommentText(e.target.value);
   }
@@ -64,7 +76,7 @@ export function Post({ author, content, publishedAt }) {
    *
    * @param {string} commentToDelete
    */
-  function deleteComment(commentToDelete) {
+  function deleteComment(commentToDelete: string) {
     const commentWithoutDeletedOne = comments.filter(
       (comment) => comment !== commentToDelete,
     );

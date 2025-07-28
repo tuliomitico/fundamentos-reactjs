@@ -3,6 +3,10 @@ import styles from "./Comment.module.css";
 import { Avatar } from "./Avatar";
 import { useState } from "react";
 
+type CommentProps = {
+  content: string;
+  onDeleteComment: (comment: string) => void;
+}
 /**
  * @typedef {Object} CommentProps
  * @prop {string} content
@@ -13,13 +17,13 @@ import { useState } from "react";
  * @param {CommentProps} props
  * @returns {import("react").JSX.Element}
  */
-export function Comment({ content, onDeleteComment }) {
+export function Comment({ content, onDeleteComment }: CommentProps): React.JSX.Element {
   const [likeCount, setLikeCount] = useState(0);
 
   /**
    * @returns {void}
    */
-  function handleDeleteComment() {
+  function handleDeleteComment(): void {
     onDeleteComment(content);
   }
 
@@ -27,7 +31,7 @@ export function Comment({ content, onDeleteComment }) {
    * Handles the event of liking a comment. Increments the like count by one.
    * @returns {void}
    */
-  function handleLikeComment() {
+  function handleLikeComment(): void {
     setLikeCount((prev) => {
       return prev + 1;
     });

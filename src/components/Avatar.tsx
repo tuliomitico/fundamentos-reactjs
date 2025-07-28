@@ -1,5 +1,10 @@
 import styles from "./Avatar.module.css";
 
+type AvatarProps = {
+  src: string;
+  hasBorder?: boolean;
+  alt?: string;
+}
 /**
  * @typedef {Object} Props
  * @prop {string} src
@@ -7,16 +12,15 @@ import styles from "./Avatar.module.css";
  */
 
 /**
- *
- * @param {Props} props
+ * @param {AvatarProps} props
  * @returns {import("react").JSX.Element}
  */
-export function Avatar({ hasBorder = true, src }) {
+export function Avatar({ hasBorder = true, src, alt }: AvatarProps): React.JSX.Element {
   return (
     <img
       className={hasBorder ? styles.avatarWithBorder : styles.avatar}
       src={src}
-      alt="avatar"
+      alt={alt}
     />
   );
 }

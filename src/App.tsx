@@ -6,6 +6,19 @@ import "./global.css";
 
 import styles from "./App.module.css";
 
+export interface Post {
+  id: number;
+  author: {
+    avatarUrl: string;
+    name: string;
+    role: string;
+  };
+  content: {
+    type: "paragraph" | "link";
+    content: string;
+  }[];
+  publishedAt: Date;
+}
 /**
  * @typedef {Object} Post
  * @prop {number} id
@@ -21,7 +34,7 @@ import styles from "./App.module.css";
  * @constant
  * @type {Post[]}
  */
-const posts = [
+const posts: Post[] = [
   {
     id: 1,
     author: {
