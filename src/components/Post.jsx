@@ -42,10 +42,21 @@ export function Post({ author, content, publishedAt }) {
   }
 
   /**
+   * Sets a custom validity message for the comment input when it is invalid.
+   *
+   * @param {import("react").InvalidEvent<HTMLTextAreaElement>} event - The invalid event triggered by the textarea.
+   */
+
+  function handleNewCommentInvalid(event) {
+    event.target.setCustomValidity("Esse campo é obrigatório");
+  }
+
+  /**
    *
    * @param {import("react").ChangeEvent<HTMLTextAreaElement>} e
    */
   function handleNewCommentChange(e) {
+    e.target.setCustomValidity("");
     setNewCommentText(e.target.value);
   }
 
@@ -59,6 +70,8 @@ export function Post({ author, content, publishedAt }) {
     );
     setComments(commentWithoutDeletedOne);
   }
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -97,9 +110,13 @@ export function Post({ author, content, publishedAt }) {
           placeholder="Deixe um comentário"
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
       <div className={styles.commentList}>
