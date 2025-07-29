@@ -1,4 +1,4 @@
-import { Post } from "./components/Post";
+import { Post, type PostType } from "./components/Post";
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 
@@ -6,19 +6,6 @@ import "./global.css";
 
 import styles from "./App.module.css";
 
-export interface Post {
-  id: number;
-  author: {
-    avatarUrl: string;
-    name: string;
-    role: string;
-  };
-  content: {
-    type: "paragraph" | "link";
-    content: string;
-  }[];
-  publishedAt: Date;
-}
 /**
  * @typedef {Object} Post
  * @prop {number} id
@@ -34,7 +21,7 @@ export interface Post {
  * @constant
  * @type {Post[]}
  */
-const posts: Post[] = [
+const posts: PostType[] = [
   {
     id: 1,
     author: {
@@ -84,9 +71,7 @@ export function App() {
             return (
               <Post
                 key={post.id}
-                author={post.author}
-                content={post.content}
-                publishedAt={post.publishedAt}
+                post={post}
               />
             );
           })}

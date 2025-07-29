@@ -15,16 +15,22 @@ interface Content {
   type: "paragraph" | "link";
   content: string;
 }
-interface PostProps {
+
+export interface PostType {
+  id: number;
   author: Author;
   content: Content[];
   publishedAt: Date;
+}
+
+interface PostProps {
+  post: PostType
 }
 /**
  * @param {import("../App.jsx").Post} props
  * @returns {import("react").JSX.Element}
  */
-export function Post({ author, content, publishedAt }: PostProps): React.JSX.Element {
+export function Post({ post: { author, content, publishedAt } }: PostProps): React.JSX.Element {
   const [comments, setComments] = useState<string[]>([]);
 
   const [newCommentText, setNewCommentText] = useState("");

@@ -1,11 +1,12 @@
+import type { ImgHTMLAttributes } from "react";
 import styles from "./Avatar.module.css";
 
-type AvatarProps = {
-  src: string;
+interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement>  {
   hasBorder?: boolean;
-  alt?: string;
 }
+
 /**
+ * 
  * @typedef {Object} Props
  * @prop {string} src
  * @prop {boolean} hasBorder
@@ -15,12 +16,11 @@ type AvatarProps = {
  * @param {AvatarProps} props
  * @returns {import("react").JSX.Element}
  */
-export function Avatar({ hasBorder = true, src, alt }: AvatarProps): React.JSX.Element {
+export function Avatar({ hasBorder = true, ...props }: AvatarProps): React.JSX.Element {
   return (
     <img
       className={hasBorder ? styles.avatarWithBorder : styles.avatar}
-      src={src}
-      alt={alt}
+      {...props}
     />
   );
 }
